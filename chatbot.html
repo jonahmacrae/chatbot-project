@@ -37,13 +37,27 @@
         color: rgb(120, 120, 120);
         text-align: center;
         margin-top: 0;
-}
+      }
+
+      .chat-message-user {
+        display: flex;
+        gap: 10px;
+        justify-content: end;
+        margin-bottom: 20px;
+      }
+
+      .chat-message-robot {
+        display: flex;
+        gap: 10px;
+        justify-content: start;
+        margin-bottom: 20px;
+      }
+
+      
     </style>
   </head>
   <body>
     <div class="js-container"></div>
-
-    <script src="react-basics.js"></script>
 
     <script src="https://unpkg.com/supersimpledev/react.js"></script>
     <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
@@ -55,6 +69,9 @@
       const DEFAULT_TEXT_INPUT_STATE = '';
       const SENDER_USER = 'user';
       const SENDER_ROBOT = 'robot';
+      const ROBOT_IMAGE_FILEPATH = 'assets/robot.png';
+      const USER_IMAGE_FILEPATH = 'assets/user.png';
+      const DEFAULT_PLACEHOLDER_TEXT = 'Send a message to Chatbot';
       
       function ChatInput({ chatMessages, setChatMessages }) {
         const [inputText, setInputText] = React.useState(DEFAULT_TEXT_INPUT_STATE);
@@ -117,7 +134,7 @@
             className="chat-input-container"
           >
             <input 
-              placeholder="Send a message to Chatbot" 
+              placeholder={DEFAULT_PLACEHOLDER_TEXT}
               size="30"
               onChange={saveInputText}
               onKeyDown={handleKeyDown}
@@ -134,13 +151,23 @@
 
       function ChatMessage({message, sender}) {
         return(
-          <div>
+          <div
+            className={
+              sender === SENDER_USER 
+              ? 'chat-message-user' 
+              : 'chat-message-robot'
+            }
+          >
             {sender === SENDER_ROBOT && (
-              <img src="assets/robot.png" width="50" />
+              <img src={ROBOT_IMAGE_FILEPATH} width="50" />
             )}
-            {message}
+            <div
+              className='chat-message-text'
+            >
+              {message}
+            </div>
             {sender === SENDER_USER && (
-              <img src="assets/user.png" width="50" />
+              <img src={USER_IMAGE_FILEPATH} width="50" />
             )}
           </div>
         );
