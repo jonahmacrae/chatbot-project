@@ -3,6 +3,11 @@
   <head>
     <title>Chatbot</title>
     <style>
+      body {
+        font-family: Arial;
+        margin: 0px 8px;
+      }
+
       .send-button {
         background-color: rgb(25, 135, 84);
         color: white;
@@ -25,12 +30,16 @@
 
       .chat-input-container {
         display: flex;
+        
       }
 
       .app-container {
         max-width: 600px;
         margin: auto;
-        padding: 12px 0;
+        height: calc(100vh - 28px);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
       }
 
       .welcome-message {
@@ -41,19 +50,31 @@
 
       .chat-message-user {
         display: flex;
-        gap: 10px;
+        align-items: start;
         justify-content: end;
-        margin-bottom: 20px;
       }
 
       .chat-message-robot {
         display: flex;
-        gap: 10px;
-        justify-content: start;
-        margin-bottom: 20px;
+        align-items: start;
       }
 
-      
+      .chat-message-text {
+        background-color: rgb(238, 238, 238);
+        padding: 15px 20px;
+        border-radius: 10px;
+        margin: 0 10px 20px;
+        max-width: 300px;
+      }
+
+      .chat-message-profile {
+        width: 45px;
+      }
+
+      .chat-messages-container {
+        flex-grow: 1;
+        margin-top: 20px;
+      }
     </style>
   </head>
   <body>
@@ -159,7 +180,7 @@
             }
           >
             {sender === SENDER_ROBOT && (
-              <img src={ROBOT_IMAGE_FILEPATH} width="50" />
+              <img src={ROBOT_IMAGE_FILEPATH} className="chat-message-profile" />
             )}
             <div
               className='chat-message-text'
@@ -167,7 +188,7 @@
               {message}
             </div>
             {sender === SENDER_USER && (
-              <img src={USER_IMAGE_FILEPATH} width="50" />
+              <img src={USER_IMAGE_FILEPATH} className="chat-message-profile" />
             )}
           </div>
         );
@@ -175,7 +196,9 @@
 
       function ChatMessages({ chatMessages }) {
         return(
-          <>
+          <div
+            className="chat-messages-container"
+          >
             {chatMessages.map((chatMessage, index) => {
               return (
                 <ChatMessage
@@ -185,7 +208,7 @@
                 />
               );
             })}
-          </>
+          </div>
         );
       }
 
@@ -195,11 +218,7 @@
         return (
           <div
             className="app-container"
-          >
-            <ChatInput 
-              chatMessages={chatMessages} 
-              setChatMessages={setChatMessages}
-            /> 
+          > 
             <ChatMessages 
               chatMessages={chatMessages}
             />
@@ -211,6 +230,11 @@
                   Welcome to the chatbot project! Send a message using the textbox above.
                 </p>
               )}
+
+            <ChatInput 
+              chatMessages={chatMessages} 
+              setChatMessages={setChatMessages}
+            /> 
           </div>
         );
       }
