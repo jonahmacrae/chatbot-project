@@ -1,0 +1,19 @@
+.app-container {
+  max-width: 600px;
+  margin: auto;
+  height: calc(100vh - 28px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.welcome-message {
+  color: rgb(120, 120, 120);
+  text-align: center;
+  margin-top: 0;
+}
+
+.loading-spinner {
+  height:40px;
+  margin: -15px;
+}
